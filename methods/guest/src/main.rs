@@ -12,7 +12,11 @@ risc0_zkvm::guest::entry!(main);
 
 pub fn main() {
     let start = env::get_cycle_count();
-    let _data: Vec<u8> = black_box(env::read());
+    let _data: Vec<u8> = black_box({
+        let mut buffer = [0; 400];
+        env::read_slice(&mut buffer);
+        buffer.to_vec()
+    });
     let end = env::get_cycle_count();
 
     let cycles = (end - start) as u32;

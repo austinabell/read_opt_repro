@@ -8,10 +8,7 @@ use risc0_zkvm::{default_prover, ExecutorEnv};
 fn main() {
     let bytes = vec![8u8; 400];
     // First, we construct an executor environment
-    let env = ExecutorEnv::builder()
-        .add_input(&to_vec(&bytes).unwrap())
-        .build()
-        .unwrap();
+    let env = ExecutorEnv::builder().add_input(&bytes).build().unwrap();
 
     // Obtain the default prover.
     let prover = default_prover();
@@ -23,7 +20,7 @@ fn main() {
     // other parties to verify here
     let cycles: u32 = from_slice(&receipt.journal).unwrap();
     println!("cycles: {}", cycles);
-    assert_eq!(cycles, 31253);
+    assert_eq!(cycles, 1834);
 
     // Optional: Verify receipt to confirm that recipients will also be able to
     // verify your receipt
